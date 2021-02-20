@@ -9,11 +9,11 @@ Please don't take any of this as serious advice on how to write idiomatic rust.
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
 
-- *Day 01*
+- **Day 01**
 
   Just crunch the numbers, duh
 
-- *Day 02*
+- **Day 02**
 
   Note that only in the first instruction we read from / write to an address
   that depends on the noun and verb. The result of this operation is overwritten
@@ -42,5 +42,7 @@ they work for all possible inputs, but they do work for mine.
   the property that it evaluates to a diophantine equation.
 
   * Bruteforce: O(n^3)
-  * Evaluate Polynomial, then bruteforce: O(n^2)
+  * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
+
+- **Day 03**

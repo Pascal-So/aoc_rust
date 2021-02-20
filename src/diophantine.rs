@@ -20,7 +20,7 @@ impl Lattice {
     }
 }
 
-pub fn linear_diophantine_equation(a: i64, b: i64, c: i64) -> Option<Lattice> {
+pub fn linear_equation(a: i64, b: i64, c: i64) -> Option<Lattice> {
     let (d, x_d, y_d) = egcd(a, b);
 
     if c % d != 0 {
@@ -39,11 +39,11 @@ mod tests {
 
     #[test]
     fn test_diophantine() {
-        assert!(linear_diophantine_equation(4, 5, 0).unwrap().is_solution(0, 0));
-        assert!(linear_diophantine_equation(4, 5, 4).unwrap().is_solution(-4, 4));
-        assert!(linear_diophantine_equation(4, 5, 4).unwrap().is_solution(1, 0));
-        assert!(linear_diophantine_equation(4, 0, 4).unwrap().is_solution(1, 0));
-        assert!(!linear_diophantine_equation(4, 5, 4).unwrap().is_solution(1, 2));
-        assert_eq!(linear_diophantine_equation(6, 9, 4), None);
+        assert!(linear_equation(4, 5, 0).unwrap().is_solution(0, 0));
+        assert!(linear_equation(4, 5, 4).unwrap().is_solution(-4, 4));
+        assert!(linear_equation(4, 5, 4).unwrap().is_solution(1, 0));
+        assert!(linear_equation(4, 0, 4).unwrap().is_solution(1, 0));
+        assert!(!linear_equation(4, 5, 4).unwrap().is_solution(1, 2));
+        assert_eq!(linear_equation(6, 9, 4), None);
     }
 }

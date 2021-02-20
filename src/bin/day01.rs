@@ -1,27 +1,22 @@
+use std::iter;
+
 fn fuel(mass: &i32) -> i32 {
     mass / 3 - 2
 }
 
-fn clamped_fuel(mass: &i32) -> i32 {
-    std::cmp::max(mass / 3 - 2, 0)
-}
-
-fn iterated_fuel(mass: &i32) -> i32 {
-    let mut rest = *mass;
-    let mut sum = 0;
-    while rest > 0 {
-        rest = clamped_fuel(&rest);
-        sum += rest;
-    }
-    sum
-}
-
-fn solve_a(nums: &Vec<i32>) -> i32 {
+fn solve_a(nums: &[i32]) -> i32 {
     nums.iter().map(fuel).sum()
 }
 
-fn solve_b(nums: &Vec<i32>) -> i32 {
-    nums.iter().map(iterated_fuel).sum()
+fn solve_b(nums: &[i32]) -> i32 {
+    nums.iter()
+        .map(|&m| {
+            iter::successors(Some(m), |m| Some(fuel(m)))
+                .take_while(|&m| m > 0)
+                .skip(1)
+        })
+        .flatten()
+        .sum()
 }
 
 fn main() {

@@ -1,3 +1,8 @@
+// I can see why someone would have thought this lint
+// would be a good idea, but.. what if I want to
+// implement Mul for a polynomial??
+#![allow(clippy::suspicious_arithmetic_impl)]
+
 use core::ops;
 use itertools::Itertools;
 use std::collections::HashMap;
@@ -32,14 +37,14 @@ impl BivariatePolynomial {
     pub fn get_constant(&self) -> Option<usize> {
         if let Some((k, v)) = self.coeffs.iter().next() {
             if self.coeffs.len() == 1 && *k == (0, 0) {
-                return Some(*v);
+                Some(*v)
             } else {
                 // Is not constant.
-                return None;
+                None
             }
         } else {
             // No coefficients available => constant zero.
-            return Some(0);
+            Some(0)
         }
     }
 
@@ -51,7 +56,7 @@ impl BivariatePolynomial {
             }
         }
 
-        return true;
+        true
     }
 
     pub fn evaluate(&self, x: usize, y: usize) -> usize {
@@ -77,11 +82,14 @@ impl_op_ex!(+ |a: &BivariatePolynomial, b: &BivariatePolynomial| -> BivariatePol
         *out.coeffs.entry(*k).or_insert(0) += v;
     };
 
-    return out;
+    out
 });
 
-impl_op_ex!(
-    *|a: &BivariatePolynomial, b: &BivariatePolynomial| -> BivariatePolynomial {
+// I guess rustfmt detects the * as a deref, which tells me that maybe
+// the impl_op_ex macro in its current form is not ideal. Anyway, I
+// would like to keep that space between `* |` thank you very much.
+#[rustfmt::skip]
+impl_op_ex!(* |a: &BivariatePolynomial, b: &BivariatePolynomial| -> BivariatePolynomial {
         let mut out = BivariatePolynomial::new(&[]);
 
         for ((xa, ya), va) in &a.coeffs {
@@ -91,7 +99,7 @@ impl_op_ex!(
             }
         }
 
-        return out;
+        out
     }
 );
 

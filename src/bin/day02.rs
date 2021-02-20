@@ -1,12 +1,13 @@
 use advent::bivariate_polynomial::BP;
+use std::cmp::Ordering;
 
-fn access(program: &Vec<BP>, instruction_pointer: usize) -> Result<usize, String> {
+fn access(program: &[BP], instruction_pointer: usize) -> Result<usize, String> {
     let val = &program[instruction_pointer];
     val.get_constant()
         .ok_or(format!("Value not constant: {}", val))
 }
 
-fn run(program: &mut Vec<BP>) -> Result<(), String> {
+fn run(program: &mut [BP]) -> Result<(), String> {
     let mut instruction_pointer = 0;
 
     while instruction_pointer < program.len() {
@@ -30,7 +31,7 @@ fn run(program: &mut Vec<BP>) -> Result<(), String> {
     Err("Reached end of program".to_owned())
 }
 
-fn requires_brute_force(program: &Vec<usize>) -> bool {
+fn requires_brute_force(program: &[usize]) -> bool {
     // Iterate only over the output addresses.
     for (i, f) in program.iter().enumerate().skip(3).step_by(4) {
         if *f > i {
@@ -47,7 +48,7 @@ fn requires_brute_force(program: &Vec<usize>) -> bool {
     // instruction we never again have a noun or verb dependent address to
     // read or write from. The end result is thus a multivariate polynomial
     // in the noun and verb.
-    return program[3] != 3 || program[5] == 3 || program[6] == 3 || program[7] != 3;
+    program[3] != 3 || program[5] == 3 || program[6] == 3 || program[7] != 3
 }
 
 fn load_program(file: impl AsRef<std::path::Path>) -> Vec<BP> {
@@ -88,7 +89,7 @@ fn day02() -> (usize, i64) {
 
     println!("    Solving diophantine equation {}x + {}y = {}", a, b, c);
 
-    let dsol = advent::diophantine::linear_diophantine_equation(a, b, c).unwrap();
+    let dsol = advent::diophantine::linear_equation(a, b, c).unwrap();
 
     println!(
         "    Solution is in ({}, {}) + k({}, {}) with k in Z",
@@ -100,12 +101,10 @@ fn day02() -> (usize, i64) {
 
     println!("    k is in [{}, {}]", k_min, k_max);
 
-    let xy = if -dsol.step.y > dsol.step.x {
-        dsol.offset + dsol.step * k_max
-    } else if -dsol.step.y == dsol.step.x {
-        dsol.offset + dsol.step * (k_max + k_min) / 2
-    } else {
-        dsol.offset + dsol.step * k_min
+    let xy = match (-dsol.step.y).cmp(&dsol.step.x) {
+        Ordering::Greater => dsol.offset + dsol.step * k_max,
+        Ordering::Equal => dsol.offset + dsol.step * (k_max + k_min) / 2,
+        Ordering::Less => dsol.offset + dsol.step * k_min,
     };
 
     let sol_b = xy.x * 100 + xy.y;
