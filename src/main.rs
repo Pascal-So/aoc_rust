@@ -1,8 +1,8 @@
-use advent::{io::file, y2019};
+use advent::{io::file, y2021};
 
 fn main() {
     println!(
-        "{:#}",
-        y2019::d01::solve(file("data/2019/01.txt").unwrap()).unwrap()
+        "{}",
+        y2021::d01::solve(file("data/2021/01.txt").unwrap()).unwrap()
     );
 }

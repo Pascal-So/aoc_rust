@@ -1,13 +1,23 @@
 # Advent of Code in Rust
 
-Starting with 2019.
-
-Please don't take any of this as serious advice on how to write idiomatic rust.
-
-## Solutions 2019
+Spoilers ahead on how (not) to do it.
 
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
+
+## Solutions 2021
+
+- **Day 01**
+
+  Nothing really interesting, but always nice to see problems that can be
+  solved in constant memory.
+
+  I guess technically this implementation is not constant memory if you
+  don't consider the window size to be a constant, but if the window size
+  ever gets really big you could just open the input file twice.
+
+## Solutions 2019
+
 
 - **Day 01**
 
@@ -44,5 +54,3 @@ they work for all possible inputs, but they do work for mine.
   * Bruteforce: O(n^3)
   * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
-
-- **Day 03**
