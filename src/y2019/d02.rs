@@ -1,5 +1,6 @@
-use advent::bivariate_polynomial::BP;
-use std::cmp::Ordering;
+use crate::bivariate_polynomial::BP;
+use anyhow::{bail, Result};
+use std::{cmp::Ordering, io::BufRead};
 
 fn access(program: &[BP], instruction_pointer: usize) -> Result<usize, String> {
     let val = &program[instruction_pointer];
@@ -51,20 +52,20 @@ fn requires_brute_force(program: &[usize]) -> bool {
     program[3] != 3 || program[5] == 3 || program[6] == 3 || program[7] != 3
 }
 
-fn load_program(file: impl AsRef<std::path::Path>) -> Vec<BP> {
-    let program: Vec<usize> = advent::io::parse_vector_from_file(file, b',').unwrap();
+fn load_program(buf: impl BufRead, check_brute_force: bool) -> Result<Vec<BP>> {
+    let program = crate::io::parse_vec(buf, b',')?;
 
-    if requires_brute_force(&program) {
-        panic!("This program has address-dependent reads and the task thus has to be solved by brute force.")
+    if check_brute_force && requires_brute_force(&program) {
+        bail!("This program has address-dependent reads and the task thus has to be solved by brute force.")
     }
 
-    program.into_iter().map(BP::constant).collect()
+    Ok(program.into_iter().map(BP::constant).collect())
 }
 
-fn day02() -> (usize, i64) {
+pub fn solve(buf: impl BufRead) -> Result<(usize, i64)> {
     println!("Day 02");
 
-    let mut program = load_program("data/02.txt");
+    let mut program = load_program(buf, true)?;
 
     program[1] = BP::x();
     program[2] = BP::y();
@@ -89,7 +90,7 @@ fn day02() -> (usize, i64) {
 
     println!("    Solving diophantine equation {}x + {}y = {}", a, b, c);
 
-    let dsol = advent::diophantine::linear_equation(a, b, c).unwrap();
+    let dsol = crate::diophantine::linear_equation(a, b, c).unwrap();
 
     println!(
         "    Solution is in ({}, {}) + k({}, {}) with k in Z",
@@ -110,11 +111,7 @@ fn day02() -> (usize, i64) {
     let sol_b = xy.x * 100 + xy.y;
     println!("    x = {}, y = {}. Solution = {}", xy.x, xy.y, sol_b);
 
-    (sol_a, sol_b)
-}
-
-fn main() {
-    day02();
+    Ok((sol_a, sol_b))
 }
 
 #[cfg(test)]
@@ -122,17 +119,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_day_02() {
-        assert_eq!(day02(), (3562624, 8298));
-    }
-
-    #[test]
-    fn test_example() {
-        let mut program: Vec<BP> = [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50]
-            .iter()
-            .copied()
-            .map(BP::constant)
-            .collect();
+    fn test_example_endstate() -> Result<()> {
+        let mut program = load_program("1,9,10,3,2,3,11,0,99,30,40,50".as_bytes(), false)?;
 
         run(&mut program).unwrap();
         let endstate = program
@@ -140,5 +128,7 @@ mod tests {
             .map(|c| c.get_constant().unwrap())
             .collect::<Vec<usize>>();
         assert_eq!(endstate, vec![3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50]);
+
+        Ok(())
     }
 }
