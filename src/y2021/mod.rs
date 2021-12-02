@@ -1,4 +1,5 @@
 pub mod d01;
+pub mod d02;
 
 #[cfg(test)]
 mod tests {
