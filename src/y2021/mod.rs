@@ -3,24 +3,11 @@ pub mod d02;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::io::file;
-    use anyhow::Result;
+    use crate::test_task;
 
-    #[test]
-    fn test_day_01() -> Result<()> {
-        let example_sol =
-            d01::solve("199\n200\n208\n210\n200\n207\n240\n269\n260\n263".as_bytes())?;
-        assert_eq!(
-            example_sol,
-            d01::Solution {
-                raw: 7,
-                windowed: 5
-            }
-        );
+    test_task! { super::d01, y2021, d01, example, (7, 5) }
+    test_task! { super::d01, y2021, d01, full, (1301, 1346) }
 
-        let sol = d01::solve(file("data/2021/01.txt")?)?;
-        dbg!(sol);
-        Ok(())
-    }
+    test_task! { super::d02, y2021, d02, example, (150, 900) }
+    test_task! { super::d02, y2021, d02, full, (2102357, 2101031224) }
 }

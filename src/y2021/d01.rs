@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::{collections::VecDeque, fmt::Display, io::BufRead};
+use std::{collections::VecDeque, io::BufRead};
 
 use crate::io::parse_iter;
 
@@ -40,21 +40,7 @@ impl State {
     }
 }
 
-#[derive(PartialEq, Eq, Debug)]
-pub struct Solution {
-    pub raw: i32,
-    pub windowed: i32,
-}
-
-impl Display for Solution {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "Year 2021 Day 02")?;
-        writeln!(f, "  Raw: {}", self.raw)?;
-        writeln!(f, "  Windowed: {}", self.windowed)
-    }
-}
-
-pub fn solve(buf: impl BufRead) -> Result<Solution> {
+pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
     let final_state = parse_iter::<_, i32>(buf, b'\n').try_fold(
         [State::new(1), State::new(3)],
         |[s1, s3], n| -> Result<[State; 2]> {
@@ -63,8 +49,5 @@ pub fn solve(buf: impl BufRead) -> Result<Solution> {
         },
     )?;
 
-    Ok(Solution {
-        raw: final_state[0].count,
-        windowed: final_state[1].count,
-    })
+    Ok((final_state[0].count, final_state[1].count))
 }

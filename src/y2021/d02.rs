@@ -1,21 +1,8 @@
-use std::{fmt::Display, io::BufRead};
+use std::io::BufRead;
 
 use anyhow::{bail, Context, Result};
 
 use crate::io;
-
-pub struct Solution {
-    pub normal: i64,
-    pub aimed: i64,
-}
-
-impl Display for Solution {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "Year 2021 Day 02")?;
-        writeln!(f, "  Normal: {}", self.normal)?;
-        writeln!(f, "  Aimed: {}", self.aimed)
-    }
-}
 
 #[derive(PartialEq, Eq, Debug)]
 enum Direction {
@@ -104,7 +91,7 @@ impl State {
     }
 }
 
-pub fn solve(buf: impl BufRead) -> Result<Solution> {
+pub fn solve(buf: impl BufRead) -> Result<(i64, i64)> {
     let (normal, aimed) = io::parse_iter(buf, b'\n')
         .map(|line: Result<String>| -> Result<Command> {
             Command::parse(line.context("invalid line in input")?.as_bytes())
@@ -117,8 +104,5 @@ pub fn solve(buf: impl BufRead) -> Result<Solution> {
             },
         )?;
 
-    Ok(Solution {
-        normal: normal.product(),
-        aimed: aimed.product(),
-    })
+    Ok((normal.product(), aimed.product()))
 }
