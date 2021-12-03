@@ -5,7 +5,7 @@ Spoilers ahead on how (not) to do it.
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
 
-## Solutions 2021
+## 2021
 
 - **Day 01**
 
@@ -16,8 +16,19 @@ they work for all possible inputs, but they do work for mine.
   don't consider the window size to be a constant, but if the window size
   ever gets really big you could just open the input file twice.
 
-## Solutions 2019
+- **Day 02**
 
+  Again a job for [try_fold()][doc_try_fold]. Like on day 1 we can run both
+  subtasks in the same run, we're thus only iterating through the data once.
+
+- **Day 03**
+
+  Lol nested binary search, don't think I've seen that one before :D
+
+  The runtime for the second subtask is O(b * n * log n) where n is the number
+  of lines in the input and b is the number of bits per line.
+
+## 2019
 
 - **Day 01**
 
@@ -54,3 +65,6 @@ they work for all possible inputs, but they do work for mine.
   * Bruteforce: O(n^3)
   * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
+
+
+[doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
