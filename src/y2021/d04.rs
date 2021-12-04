@@ -13,7 +13,7 @@ struct Boards {
     /// by the rowcol index.
     pub count: Vec<usize>,
 
-    /// Mapping from a drawn bingo number to the rowcol indices where this
+    /// Mapping from a bingo number to the rowcol indices where this
     /// number occurs.
     pub occurrences: HashMap<i32, Vec<usize>>,
 

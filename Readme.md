@@ -28,6 +28,14 @@ they work for all possible inputs, but they do work for mine.
   The runtime for the second subtask is O(b * n * log n) where n is the number
   of lines in the input and b is the number of bits per line.
 
+- **Day 04**
+
+  Let `n` be the amount of bingo numbers drawn, `b` the amount of boards, and
+  `s` the side length of a board. Then:
+
+  * Rumtime: O(b * n)
+  * Storage: O(b * s * s + n)
+
 ## 2020
 
 - **Day 01**
@@ -74,5 +82,8 @@ they work for all possible inputs, but they do work for mine.
   * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
 
+- **Day 04**
+
+  
 
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
