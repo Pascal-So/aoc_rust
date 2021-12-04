@@ -28,6 +28,14 @@ they work for all possible inputs, but they do work for mine.
   The runtime for the second subtask is O(b * n * log n) where n is the number
   of lines in the input and b is the number of bits per line.
 
+## 2020
+
+- **Day 01**
+
+  For the first subtask using a hashset shouldn't be much faster than just 
+  sorting the array because the input is so small, but using the hashmap for
+  the second subtask seems like a much more natural representation.
+
 ## 2019
 
 - **Day 01**
