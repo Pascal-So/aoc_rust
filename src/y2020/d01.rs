@@ -40,7 +40,7 @@ pub fn solve_b(nums: &[i32]) -> Option<i32> {
 }
 
 pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let lines = io::parse_vec(buf, b'\n').context("Cannot parse input")?;
+    let lines = io::parse_vec(buf, b'\n', false).context("Cannot parse input")?;
     let a = solve_a(&lines).ok_or_else(|| anyhow!("No solution found for first subtask"))?;
     let b = solve_b(&lines).ok_or_else(|| anyhow!("No solution found for second subtask"))?;
 

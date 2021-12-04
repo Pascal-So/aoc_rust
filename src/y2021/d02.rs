@@ -2,8 +2,6 @@ use std::io::BufRead;
 
 use anyhow::{bail, Context, Result};
 
-use crate::io;
-
 #[derive(PartialEq, Eq, Debug)]
 enum Direction {
     Up,
@@ -92,10 +90,9 @@ impl State {
 }
 
 pub fn solve(buf: impl BufRead) -> Result<(i64, i64)> {
-    let (normal, aimed) = io::parse_iter(buf, b'\n')
-        .map(|line: Result<String>| -> Result<Command> {
-            Command::parse(line.context("invalid line in input")?.as_bytes())
-        })
+    let (normal, aimed) = buf
+        .split(b'\n')
+        .map(|line| -> Result<Command> { Command::parse(&line.context("invalid line in input")?) })
         .try_fold(
             (State::new(), State::new()),
             |(normal, aimed), cmd: Result<Command>| -> Result<(State, State)> {

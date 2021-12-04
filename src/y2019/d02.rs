@@ -53,7 +53,7 @@ fn requires_brute_force(program: &[usize]) -> bool {
 }
 
 fn load_program(buf: impl BufRead, check_brute_force: bool) -> Result<Vec<BP>> {
-    let program = crate::io::parse_vec(buf, b',')?;
+    let program = crate::io::parse_vec(buf, b',', false)?;
 
     if check_brute_force && requires_brute_force(&program) {
         bail!("This program has address-dependent reads and the task thus has to be solved by brute force.")

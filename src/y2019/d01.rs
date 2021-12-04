@@ -21,6 +21,6 @@ fn solve_b(nums: &[i32]) -> i32 {
 }
 
 pub fn solve(r: impl BufRead) -> Result<(i32, i32)> {
-    let nums = crate::io::parse_vec(r, b'\n')?;
+    let nums = crate::io::parse_vec(r, b'\n', false)?;
     Ok((solve_a(&nums), solve_b(&nums)))
 }

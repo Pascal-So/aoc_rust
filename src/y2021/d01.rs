@@ -41,7 +41,7 @@ impl State {
 }
 
 pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let final_state = parse_iter::<_, i32>(buf, b'\n').try_fold(
+    let final_state = parse_iter::<_, i32>(buf, b'\n', false).try_fold(
         [State::new(1), State::new(3)],
         |[s1, s3], n| -> Result<[State; 2]> {
             let n = n?;
