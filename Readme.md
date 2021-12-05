@@ -36,6 +36,12 @@ they work for all possible inputs, but they do work for mine.
   * Runtime: O(b * n)
   * Storage: O(b * s * s + n)
 
+- [**Day 05**](https://adventofcode.com/2021/day/5)
+
+  By far the slowest code in this repo so far, will have to revisit this one
+  later. Still finishes the tests in around 10ms in release mode but an algo
+  with an output dependent runtime would be much quicker here.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
