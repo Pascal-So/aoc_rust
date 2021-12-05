@@ -54,6 +54,11 @@ they work for all possible inputs, but they do work for mine.
   sorting the array because the input is so small, but using the hashmap for
   the second subtask seems like a much more natural representation.
 
+- [**Day 02**](https://adventofcode.com/2020/day/2)
+
+  Some more [nom][doc_nom] practice. The most difficult thing about this at the
+  moment is getting type deduction to work without a ton of boilerplate.
+
 ## [2019](https://adventofcode.com/2019)
 
 - [**Day 01**](https://adventofcode.com/2019/day/1)
@@ -94,3 +99,4 @@ they work for all possible inputs, but they do work for mine.
   
 
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
+[doc_nom]: https://crates.io/crates/nom
