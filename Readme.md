@@ -5,7 +5,7 @@ Spoilers ahead on how (not) to do it.
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
 
-## 2021
+## [2021](https://adventofcode.com/2021)
 
 - [**Day 01**](https://adventofcode.com/2021/day/1)
 
@@ -36,7 +36,7 @@ they work for all possible inputs, but they do work for mine.
   * Runtime: O(b * n)
   * Storage: O(b * s * s + n)
 
-## 2020
+## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
 
@@ -44,7 +44,7 @@ they work for all possible inputs, but they do work for mine.
   sorting the array because the input is so small, but using the hashmap for
   the second subtask seems like a much more natural representation.
 
-## 2019
+## [2019](https://adventofcode.com/2019)
 
 - [**Day 01**](https://adventofcode.com/2019/day/1)
 
