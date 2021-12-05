@@ -97,6 +97,16 @@ they work for all possible inputs, but they do work for mine.
   * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
   
+- [**Day 04**](https://adventofcode.com/2019/day/4)
+
+  Reading the first subtask I first thought I'd have to find some cool trick to
+  iterate over numbers with nondecreasing digits with pairs in them, but taking
+  the second subtask into account as well it seems easier to just iterate over
+  numbers with nondecreasing digits and then filter out the rest.
+
+  In the case of my inputs, going from iterating over all passwords between the
+  lower and upper bounds down to iterating just over the nondecreasing ones
+  reduces the required checks by a factor of over 200.
 
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
 [doc_nom]: https://crates.io/crates/nom
