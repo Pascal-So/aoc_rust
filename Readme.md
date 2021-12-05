@@ -59,6 +59,11 @@ they work for all possible inputs, but they do work for mine.
   Some more [nom][doc_nom] practice. The most difficult thing about this at the
   moment is getting type deduction to work without a ton of boilerplate.
 
+- [**Day 03**](https://adventofcode.com/2020/day/3)
+
+  Another constant-ish memory solution (at least with respect to the height of
+  the input).
+
 ## [2019](https://adventofcode.com/2019)
 
 - [**Day 01**](https://adventofcode.com/2019/day/1)
