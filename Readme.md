@@ -7,7 +7,7 @@ they work for all possible inputs, but they do work for mine.
 
 ## 2021
 
-- **Day 01**
+- [**Day 01**](https://adventofcode.com/2021/day/1)
 
   Nothing really interesting, but always nice to see problems that can be
   solved in constant memory.
@@ -16,29 +16,29 @@ they work for all possible inputs, but they do work for mine.
   don't consider the window size to be a constant, but if the window size
   ever gets really big you could just open the input file twice.
 
-- **Day 02**
+- [**Day 02**](https://adventofcode.com/2021/day/2)
 
   Again a job for [try_fold()][doc_try_fold]. Like on day 1 we can run both
   subtasks in the same run, we're thus only iterating through the data once.
 
-- **Day 03**
+- [**Day 03**](https://adventofcode.com/2021/day/3)
 
   Lol nested binary search, don't think I've seen that one before :D
 
   The runtime for the second subtask is O(b * n * log n) where n is the number
   of lines in the input and b is the number of bits per line.
 
-- **Day 04**
+- [**Day 04**](https://adventofcode.com/2021/day/4)
 
   Let `n` be the amount of bingo numbers drawn, `b` the amount of boards, and
   `s` the side length of a board. Then:
 
-  * Rumtime: O(b * n)
+  * Runtime: O(b * n)
   * Storage: O(b * s * s + n)
 
 ## 2020
 
-- **Day 01**
+- [**Day 01**](https://adventofcode.com/2020/day/1)
 
   For the first subtask using a hashset shouldn't be much faster than just 
   sorting the array because the input is so small, but using the hashmap for
@@ -46,11 +46,11 @@ they work for all possible inputs, but they do work for mine.
 
 ## 2019
 
-- **Day 01**
+- [**Day 01**](https://adventofcode.com/2019/day/1)
 
   Just crunch the numbers, duh
 
-- **Day 02**
+- [**Day 02**](https://adventofcode.com/2019/day/2)
 
   Note that only in the first instruction we read from / write to an address
   that depends on the noun and verb. The result of this operation is overwritten
@@ -81,9 +81,6 @@ they work for all possible inputs, but they do work for mine.
   * Bruteforce: O(n^3)
   * Evaluate polynomial, then bruteforce: O(n^2)
   * Diophantine equation: O(n)
-
-- **Day 04**
-
   
 
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
