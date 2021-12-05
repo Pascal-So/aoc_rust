@@ -39,8 +39,12 @@ they work for all possible inputs, but they do work for mine.
 - [**Day 05**](https://adventofcode.com/2021/day/5)
 
   By far the slowest code in this repo so far, will have to revisit this one
-  later. Still finishes the tests in around 10ms in release mode but an algo
-  with an output dependent runtime would be much quicker here.
+  later. Right now I'm just following all lines and entering the visited
+  positions in a `HashMap`, this takes about 10ms in release mode.
+
+  Update: lol just going from `HashMap` to a dense array of `u8`s improves the
+  speed by a factor of 10. I guess a dense 1MB array sometimes really is the 
+  best option.
 
 ## [2020](https://adventofcode.com/2020)
 

@@ -1,8 +1,4 @@
-use std::{
-    collections::{hash_map::Entry, HashMap},
-    io::BufRead,
-    iter::successors,
-};
+use std::{io::BufRead, iter::successors};
 
 use anyhow::{anyhow, Result};
 mod nom {
@@ -53,26 +49,26 @@ pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
     let mut all_lines = parse(buf)?;
     let nr_axis_aligned = itertools::partition(all_lines.iter_mut(), is_axis_aligned);
 
-    let mut filled = HashMap::new();
+    let mut maxx = 0;
+    let mut maxy = 0;
+    for ((sx, sy), (ex, ey)) in &all_lines {
+        maxx = maxx.max(*sx);
+        maxx = maxx.max(*ex);
+        maxy = maxy.max(*sy);
+        maxy = maxy.max(*ey);
+    }
+
+    let mut field = vec![vec![0_u8; maxy as usize + 1]; maxx as usize + 1];
     let mut total = 0;
+
     let mut fill_in = |lines: &[Line]| {
         for line in lines {
-            for point in range(*line) {
-                total += match filled.entry(point) {
-                    Entry::Occupied(mut e) => {
-                        let v = e.get_mut();
-                        *v += 1;
-                        if *v == 2 {
-                            1
-                        } else {
-                            0
-                        }
-                    }
-                    Entry::Vacant(e) => {
-                        e.insert(1);
-                        0
-                    }
-                };
+            for (x, y) in range(*line) {
+                let cell = &mut field[x as usize][y as usize];
+                *cell += 1;
+                if *cell == 2 {
+                    total += 1;
+                }
             }
         }
         total
