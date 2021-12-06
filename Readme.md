@@ -46,6 +46,11 @@ they work for all possible inputs, but they do work for mine.
   speed by a factor of 10. I guess a dense 1MB array sometimes really is the 
   best option.
 
+- [**Day 06**](https://adventofcode.com/2021/day/6)
+
+  DP. If you squint hard enough then it kinda looks like Fibonacci so I might
+  also try the log solution at some later point.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
