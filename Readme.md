@@ -55,6 +55,11 @@ they work for all possible inputs, but they do work for mine.
 
   Ugh the rounding issues on the second subtask are so annoying.
 
+- [**Day 08**](https://adventofcode.com/2021/day/8)
+
+  Friendship ended with [nom][crate_nom]. Now [combine][crate_combine] is my
+  best friend.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
@@ -65,8 +70,8 @@ they work for all possible inputs, but they do work for mine.
 
 - [**Day 02**](https://adventofcode.com/2020/day/2)
 
-  Some more [nom][doc_nom] practice. The most difficult thing about this at the
-  moment is getting type deduction to work without a ton of boilerplate.
+  Some more [nom][crate_nom] practice. The most difficult thing about this at
+  the moment is getting type deduction to work without a ton of boilerplate.
 
 - [**Day 03**](https://adventofcode.com/2020/day/3)
 
@@ -123,4 +128,5 @@ they work for all possible inputs, but they do work for mine.
   reduces the required checks by a factor of over 200.
 
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
-[doc_nom]: https://crates.io/crates/nom
+[crate_nom]: https://crates.io/crates/nom
+[crate_combine]: https://crates.io/crates/combine
