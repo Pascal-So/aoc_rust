@@ -51,6 +51,10 @@ they work for all possible inputs, but they do work for mine.
   DP. If you squint hard enough then it kinda looks like Fibonacci so I might
   also try the log solution at some later point.
 
+- [**Day 07**](https://adventofcode.com/2021/day/7)
+
+  Ugh the rounding issues on the second subtask are so annoying.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
