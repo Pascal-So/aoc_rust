@@ -78,6 +78,12 @@ they work for all possible inputs, but they do work for mine.
   Another constant-ish memory solution (at least with respect to the height of
   the input).
 
+- [**Day 25**](https://adventofcode.com/2020/day/25)
+
+  Huh am I missing something? For this to be a task here I'd expect there to be
+  a quicker way to get this logarithm than just looping, otherwise the task is
+  not even interessting??
+
 ## [2019](https://adventofcode.com/2019)
 
 - [**Day 01**](https://adventofcode.com/2019/day/1)
