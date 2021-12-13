@@ -32,6 +32,10 @@ impl<T> UnionFind<T> {
         let root_a = self.lookup_root_optimize(a);
         let root_b = self.lookup_root_optimize(b);
 
+        if root_a == root_b {
+            return;
+        }
+
         // We use temporary values so that we can swap the associated data out
         // of the data vec without copying. Both of these entires are overwritten
         // later, therefore the temporary values will never show up for the user.
