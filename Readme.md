@@ -60,6 +60,15 @@ they work for all possible inputs, but they do work for mine.
   Friendship ended with [nom][crate_nom]. Now [combine][crate_combine] is my
   best friend.
 
+- [**Day 09**](https://adventofcode.com/2021/day/9)
+
+  Knowing the properties revealed in the second subtask makes the first subtask
+  simpler. We don't have to check for local minima anymore, instead we just
+  look for the minimum within a basin.
+
+  Both subtasks can now be solved with some kind of union-find where we keep
+  the size and minimum of each set.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
