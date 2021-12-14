@@ -69,6 +69,10 @@ they work for all possible inputs, but they do work for mine.
   Both subtasks can now be solved with some kind of union-find where we keep
   the size and minimum of each set.
 
+- [**Day 10**](https://adventofcode.com/2021/day/10)
+
+  Nice, just pass in the remaining stack to the scoring function.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
