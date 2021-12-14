@@ -25,16 +25,16 @@ pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
             let val = c - b'0';
             current[i] = if val == 9 {
                 None
+            } else if i > 0 && current[i - 1].is_some() {
+                let idx = current[i - 1].unwrap();
+                let d = uf.get_mut(idx);
+                *d = merger(*d, (1, val));
+                Some(idx)
             } else {
                 Some(uf.new_set((1, val)))
             };
 
             if let Some(mid) = current[i] {
-                if i > 0 {
-                    if let Some(left) = current[i - 1] {
-                        uf.merge_with(mid, left, merger);
-                    }
-                }
                 if let Some(up) = last[i] {
                     uf.merge_with(mid, up, merger);
                 }
