@@ -73,6 +73,11 @@ they work for all possible inputs, but they do work for mine.
 
   Nice, just pass in the remaining stack to the scoring function.
 
+- [**Day 11**](https://adventofcode.com/2021/day/11)
+
+  Weird, simply iterating over the whole field multiple times until no more
+  changes occur is not that much slower than having a queue system of changes.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)

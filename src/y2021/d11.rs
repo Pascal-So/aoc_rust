@@ -10,35 +10,57 @@ pub fn solve(buf: impl BufRead) -> Result<(usize, usize)> {
         .collect::<std::io::Result<Vec<Vec<u8>>>>()
         .context("Cannot parse input")?;
 
+    let height = energy.len();
+    let width = energy[0].len();
+    let squids = height * width;
+
     let mut flashes = 0;
     let mut flashes_after_100 = None;
     let mut synchronized_step = None;
 
+    let mut flash_coords = Vec::with_capacity(squids);
+
     for step in 1.. {
+        flash_coords.clear();
         let flashes_before_this_step = flashes;
 
-        for line in energy.iter_mut() {
-            for val in line.iter_mut() {
+        for (y, line) in energy.iter_mut().enumerate() {
+            for (x, val) in line.iter_mut().enumerate() {
                 *val += 1;
+                if *val > 9 {
+                    *val = 50;
+                    flash_coords.push((y, x));
+                }
             }
         }
 
-        let mut changed = true;
-        while changed {
-            changed = false;
-            for y in 0..energy.len() {
-                for x in 0..energy[y].len() {
-                    if energy[y][x] > 9 && energy[y][x] < 100 {
-                        energy[y][x] = 100;
-                        changed = true;
-                        flashes += 1;
-                        for yp in y.saturating_sub(1)..=y + 1 {
-                            for xp in x.saturating_sub(1)..=x + 1 {
-                                energy
-                                    .get_mut(yp)
-                                    .and_then(|line| line.get_mut(xp).map(|v| *v += 1));
-                            }
-                        }
+        for flash_idx in 0.. {
+            if flash_idx >= flash_coords.len() {
+                break;
+            }
+
+            let (y, x) = flash_coords[flash_idx];
+            if energy[y][x] >= 100 {
+                continue;
+            }
+            flashes += 1;
+            energy[y][x] = 100;
+            for (yp, line) in energy
+                .iter_mut()
+                .take(y + 2)
+                .enumerate()
+                .skip(y.saturating_sub(1))
+            {
+                for (xp, val) in line
+                    .iter_mut()
+                    .take(x + 2)
+                    .enumerate()
+                    .skip(x.saturating_sub(1))
+                {
+                    *val += 1;
+                    if *val > 9 && *val < 50 {
+                        *val = 50;
+                        flash_coords.push((yp, xp));
                     }
                 }
             }
@@ -52,7 +74,7 @@ pub fn solve(buf: impl BufRead) -> Result<(usize, usize)> {
             }
         }
 
-        if flashes - flashes_before_this_step == energy.len() * energy[0].len() {
+        if flashes - flashes_before_this_step == squids {
             synchronized_step = Some(step);
         }
 
