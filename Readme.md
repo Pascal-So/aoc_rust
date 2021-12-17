@@ -78,6 +78,11 @@ they work for all possible inputs, but they do work for mine.
   Weird, simply iterating over the whole field multiple times until no more
   changes occur is not that much slower than having a queue system of changes.
 
+- [**Day 12**](https://adventofcode.com/2021/day/12)
+
+  Noooooo this task is demolishing the performance of my test suite, it's
+  taking almost half a second in debug and 13ms in release :(:(
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
