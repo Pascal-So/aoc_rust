@@ -83,6 +83,13 @@ they work for all possible inputs, but they do work for mine.
   Noooooo this task is demolishing the performance of my test suite, it's
   taking almost half a second in debug and 13ms in release :(:(
 
+- [**Day 13**](https://adventofcode.com/2021/day/13)
+
+  Nope I'm not actually recognizing the characters here, instead there's a
+  switch in the code to print out the resulting pattern after folding the
+  paper. This means that only the first subtask is tested, I hope there's not
+  gonna be any more tasks of this type.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
