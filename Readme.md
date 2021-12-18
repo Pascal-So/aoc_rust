@@ -90,6 +90,11 @@ they work for all possible inputs, but they do work for mine.
   paper. This means that only the first subtask is tested, I hope there's not
   gonna be any more tasks of this type.
 
+- [**Day 14**](https://adventofcode.com/2021/day/14)
+
+  You'll notice that I have completely given up on using parser libraries, it's
+  just not worth it in these simple cases.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
