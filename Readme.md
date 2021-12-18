@@ -95,6 +95,14 @@ they work for all possible inputs, but they do work for mine.
   You'll notice that I have completely given up on using parser libraries, it's
   just not worth it in these simple cases.
 
+- [**Day 15**](https://adventofcode.com/2021/day/15)
+
+  A* improves the speed by almost a factor 2 over plain Dijkstra.
+
+  I also tried both filling in the full 25x map as well as computing the value
+  of a cell whenever I visit it and only storing the original map. Using more
+  memory is faster.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
