@@ -14,6 +14,7 @@ nom = "7.1.0"
 combine = "4.6.2"
 bitvec = "0.22.3"
 pathfinding = "3.0.5"
+deku = "0.12.5"
 
 [dev-dependencies]
 criterion = "0.3"

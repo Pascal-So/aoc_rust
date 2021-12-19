@@ -103,6 +103,10 @@ they work for all possible inputs, but they do work for mine.
   of a cell whenever I visit it and only storing the original map. Using more
   memory is faster.
 
+- [**Day 16**](https://adventofcode.com/2021/day/16)
+
+  [deku][crate_deku] is such a good library!
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
@@ -179,3 +183,4 @@ they work for all possible inputs, but they do work for mine.
 [doc_try_fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.try_fold
 [crate_nom]: https://crates.io/crates/nom
 [crate_combine]: https://crates.io/crates/combine
+[crate_deku]: https://crates.io/crates/deku
