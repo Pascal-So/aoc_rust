@@ -1,24 +1,25 @@
 use std::{collections::HashMap, io::BufRead};
 
-use anyhow::{anyhow, bail, Result};
+use anyhow::{bail, Result};
 use combine::{
     many1,
     parser::byte::{byte, lower, space},
-    sep_by1, sep_end_by1, EasyParser, Parser,
+    sep_by1, sep_end_by1, Parser,
 };
+
+use crate::parse::combine_parse;
 
 type Digits = Vec<Vec<u8>>;
 
 fn parse_line(buf: &[u8]) -> Result<(Digits, Digits)> {
-    let (mut p, mut o): (Digits, Digits) = sep_end_by1(many1(lower()), space())
-        .and(
+    let (mut p, mut o): (Digits, Digits) = combine_parse(
+        sep_end_by1(many1(lower()), space()).and(
             byte(b'|')
                 .with(space())
                 .with(sep_by1(many1(lower()), space())),
-        )
-        .easy_parse(buf)
-        .map_err(|e| anyhow!("Parser error {:?}", e))?
-        .0;
+        ),
+        buf,
+    )?;
 
     p.iter_mut().for_each(|v| v.sort_unstable());
     o.iter_mut().for_each(|v| v.sort_unstable());
