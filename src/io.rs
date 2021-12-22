@@ -4,7 +4,7 @@ use std::path::Path;
 use std::str::FromStr;
 use std::{error::Error, io::BufRead};
 
-use anyhow::{Context, Result};
+use anyhow::{anyhow, Context, Result};
 
 pub fn file(path: impl AsRef<Path>) -> Result<impl BufRead> {
     Ok(BufReader::new(File::open(path)?))
@@ -38,6 +38,26 @@ where
     <T as FromStr>::Err: Error + Send + Sync + 'static,
 {
     parse_iter(buf, sep, skip_empty).collect()
+}
+
+pub fn get_first_line_string<B>(buf: B) -> Result<String>
+where
+    B: BufRead,
+{
+    Ok(buf
+        .lines()
+        .next()
+        .ok_or_else(|| anyhow!("Empty input!"))??)
+}
+
+pub fn get_first_line_bytes<B>(buf: B) -> Result<Vec<u8>>
+where
+    B: BufRead,
+{
+    Ok(buf
+        .split(b'\n')
+        .next()
+        .ok_or_else(|| anyhow!("Empty input!"))??)
 }
 
 #[cfg(test)]

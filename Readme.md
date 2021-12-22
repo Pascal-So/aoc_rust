@@ -107,6 +107,13 @@ they work for all possible inputs, but they do work for mine.
 
   [deku][crate_deku] is such a good library!
 
+- [**Day 17**](https://adventofcode.com/2021/day/17)
+
+  The version where I only iterate over the timesteps instead of over the x
+  velocities times the amount of hits for this x velocity is slightly faster
+  but the code there is hideous and I'm not completely sure if my solution
+  there properly generalizes to other inputs.
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
