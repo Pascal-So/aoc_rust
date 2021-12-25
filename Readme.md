@@ -114,6 +114,12 @@ they work for all possible inputs, but they do work for mine.
   but the code there is hideous and I'm not completely sure if my solution
   there properly generalizes to other inputs.
 
+- [**Day 23**](https://adventofcode.com/2021/day/23)
+
+  Another A* task. I first missed the constraint where no amphipod can move
+  into someone else's room, which had the effect of blowing up the release
+  runtime from 0.08s up to "exceeding my patience".
+
 ## [2020](https://adventofcode.com/2020)
 
 - [**Day 01**](https://adventofcode.com/2020/day/1)
