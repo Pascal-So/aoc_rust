@@ -1,6 +1,9 @@
 #![warn(clippy::all)]
 
 #[macro_use]
+extern crate combine;
+
+#[macro_use]
 extern crate impl_ops;
 
 pub mod bivariate_polynomial;

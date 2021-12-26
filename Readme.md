@@ -114,6 +114,17 @@ they work for all possible inputs, but they do work for mine.
   but the code there is hideous and I'm not completely sure if my solution
   there properly generalizes to other inputs.
 
+- [**Day 18**](https://adventofcode.com/2021/day/18)
+
+  Rust's macro_rules! is lovely :) We can construct snail numbers like this:
+  ```rust
+  number![[[5,[7,4]],7],1]
+  ```
+
+  As for the algorithm, I can't think of anything smarter to do in the second
+  subtask than to just iterate over all pairs, but it's just 100 entries so
+  who cares.
+
 - [**Day 23**](https://adventofcode.com/2021/day/23)
 
   Another A* task. I first missed the constraint where no amphipod can move
