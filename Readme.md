@@ -125,6 +125,16 @@ they work for all possible inputs, but they do work for mine.
   subtask than to just iterate over all pairs, but it's just 100 entries so
   who cares.
 
+- [**Day 20**](https://adventofcode.com/2021/day/20)
+
+  Look out for the boundary when zero maps to on and 511 maps to off, because
+  in that case the entire empty space beyond the frame should be toggling on
+  and off (this is why only even numbers of iterations are used in the task,
+  otherwise the count of active cells would be infinite).
+
+  When clipping the grid to a finite region, this toggling might lead to
+  artifacts at the boundary.
+
 - [**Day 23**](https://adventofcode.com/2021/day/23)
 
   Another A* task. I first missed the constraint where no amphipod can move
