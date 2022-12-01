@@ -5,6 +5,13 @@ Spoilers ahead on how (not) to do it.
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
 
+## [2022](https://adventofcode.com/2022)
+
+- [**Day 01**](https://adventofcode.com/2022/day/1)
+
+  There's no point in delaying the inevitable even further: I need to set
+  up a library for parsing the most common AoC input formats.
+
 ## [2021](https://adventofcode.com/2021)
 
 - [**Day 01**](https://adventofcode.com/2021/day/1)
