@@ -1,6 +1,6 @@
-use std::io::BufRead;
+use anyhow::{bail, Result};
 
-use anyhow::{bail, Context, Result};
+use crate::io;
 
 #[derive(PartialEq, Eq, Debug)]
 enum Direction {
@@ -40,6 +40,14 @@ impl Command {
             b'u' => Command::new(Up, get_distance(b"up ")?),
             _ => bail!("Invalid command {}", std::str::from_utf8(line)?),
         })
+    }
+}
+
+impl std::str::FromStr for Command {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Command::parse(s.as_bytes())
     }
 }
 
@@ -89,17 +97,13 @@ impl State {
     }
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i64, i64)> {
-    let (normal, aimed) = buf
-        .split(b'\n')
-        .map(|line| -> Result<Command> { Command::parse(&line.context("invalid line in input")?) })
-        .try_fold(
-            (State::new(), State::new()),
-            |(normal, aimed), cmd: Result<Command>| -> Result<(State, State)> {
-                let cmd = cmd?;
-                Ok((normal.normal_advance(&cmd), aimed.aimed_advance(&cmd)))
-            },
-        )?;
+pub fn solve(input: &str) -> Result<(i64, i64)> {
+    let (normal, aimed) = io::parse_entries(input, '\n')?.into_iter().try_fold(
+        (State::new(), State::new()),
+        |(normal, aimed), cmd: Command| -> Result<(State, State)> {
+            Ok((normal.normal_advance(&cmd), aimed.aimed_advance(&cmd)))
+        },
+    )?;
 
     Ok((normal.product(), aimed.product()))
 }

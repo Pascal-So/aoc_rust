@@ -6,5 +6,5 @@ mod tests {
 
     test_task! { y2023, d01, example_a, (142, _) }
     test_task! { y2023, d01, example_b, (_, 281) }
-    test_task! { y2023, d01, full, (55607, 0) }
+    test_task! { y2023, d01, full, (55607, 55291) }
 }

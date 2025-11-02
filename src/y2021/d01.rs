@@ -1,7 +1,7 @@
 use anyhow::Result;
-use std::{collections::VecDeque, io::BufRead};
+use std::collections::VecDeque;
 
-use crate::io::parse_iter;
+use crate::io;
 
 #[derive(PartialEq, Eq, Debug)]
 struct State {
@@ -40,13 +40,10 @@ impl State {
     }
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let final_state = parse_iter::<_, i32>(buf, b'\n', false).try_fold(
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let final_state = io::parse_entries(input, '\n')?.into_iter().try_fold(
         [State::new(1), State::new(3)],
-        |[s1, s3], n| -> Result<[State; 2]> {
-            let n = n?;
-            Ok([s1.update(n), s3.update(n)])
-        },
+        |[s1, s3], n: i32| -> Result<[State; 2]> { Ok([s1.update(n), s3.update(n)]) },
     )?;
 
     Ok((final_state[0].count, final_state[1].count))

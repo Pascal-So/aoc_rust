@@ -1,7 +1,4 @@
-use std::{
-    collections::{hash_map::Entry, HashMap},
-    io::{BufRead, BufReader},
-};
+use std::collections::{hash_map::Entry, HashMap};
 
 use anyhow::{anyhow, bail, Context, Result};
 
@@ -27,10 +24,10 @@ struct Boards {
     pub sums: Vec<i32>,
 }
 
-fn parse(mut buf: impl BufRead) -> Result<Boards> {
-    let mut numbers_line = vec![];
-    buf.read_until(b'\n', &mut numbers_line)?;
-    let numbers = io::parse_vec(BufReader::new(numbers_line.as_slice()), b',', false)?;
+fn parse(input: &str) -> Result<Boards> {
+    let mut lines = input.lines();
+    let first_line = lines.next().context("no first line in input")?;
+    let numbers = io::parse_entries(first_line, ',')?;
 
     let mut board_index = 0;
     let mut column_index = 0;
@@ -39,8 +36,7 @@ fn parse(mut buf: impl BufRead) -> Result<Boards> {
     let mut sums = Vec::new();
     let mut board_sum = 0;
 
-    for l in buf.lines() {
-        let line = l?;
+    for line in lines {
         if line.is_empty() {
             if length.is_some() {
                 board_index += 1;
@@ -92,8 +88,8 @@ fn parse(mut buf: impl BufRead) -> Result<Boards> {
     })
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let mut boards = parse(buf)?;
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let mut boards = parse(input)?;
     let mut finished = vec![false; boards.sums.len()];
 
     let mut first_finisher_score = None;

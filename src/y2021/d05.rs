@@ -1,12 +1,10 @@
-use std::{io::BufRead, iter::successors};
+use std::iter::successors;
 
 use anyhow::{anyhow, Result};
+
 mod nom {
     pub use ::nom::{
-        bytes::complete::tag,
-        character::complete::{char, i32},
-        sequence::separated_pair,
-        IResult,
+        bytes::complete::tag, character::complete::i32, sequence::separated_pair, IResult,
     };
 }
 
@@ -22,11 +20,13 @@ fn parse_line(i: &[u8]) -> Result<Line> {
     Ok(line(i)?.1)
 }
 
-pub fn parse(buf: impl BufRead) -> Result<Vec<Line>> {
-    buf.split(b'\n')
+pub fn parse(input: &str) -> Result<Vec<Line>> {
+    input
+        .split('\n')
         .zip(1..)
+        .filter(|(line, _)| !line.is_empty())
         .map(|(line, idx)| -> Result<Line> {
-            parse_line(&line?).map_err(|e| anyhow!("Cannot parse line {}: {}", idx, e))
+            parse_line(line.as_bytes()).map_err(|e| anyhow!("Cannot parse line {}: {}", idx, e))
         })
         .collect()
 }
@@ -45,8 +45,8 @@ fn is_axis_aligned(((sx, sy), (ex, ey)): &Line) -> bool {
     sx == ex || sy == ey
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let mut all_lines = parse(buf)?;
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let mut all_lines = parse(input)?;
     let nr_axis_aligned = itertools::partition(all_lines.iter_mut(), is_axis_aligned);
 
     let mut maxx = 0;

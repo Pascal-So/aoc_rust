@@ -1,26 +1,27 @@
-use std::io::BufRead;
+use anyhow::{anyhow, Result};
 
-use anyhow::{anyhow, Context, Result};
-use itertools::Itertools;
+use crate::io;
 
 type Num = u32;
 
-fn parse_line(line: &[u8]) -> Num {
-    line.iter().fold(0, |acc, b| 2 * acc + (b - b'0') as Num)
+fn parse_line(line: &str) -> Num {
+    line.chars()
+        .fold(0, |acc, c| match c {
+            '0'..='9' => 2 * acc + (c as u32 - '0' as u32) as Num,
+            _ => panic!("Invalid char {}", c),
+        })
 }
 
-fn parse(buf: impl BufRead) -> Result<(Vec<Num>, usize)> {
+fn parse(input: &str) -> (Vec<Num>, usize) {
     let mut nr_bits = 0;
-    let vec = buf
-        .split(b'\n')
-        .map_ok(|line| {
+    let vec = io::split_entries(input, '\n')
+        .map(|line| {
             nr_bits = line.len();
             parse_line(&line)
         })
-        .collect::<std::io::Result<_>>()
-        .context(anyhow!("Cannot read input"))?;
+        .collect();
 
-    Ok((vec, nr_bits))
+    (vec, nr_bits)
 }
 
 fn find_life_support(nums: &[Num], nr_bits: usize, oxygen: bool) -> Option<Num> {
@@ -71,8 +72,8 @@ pub fn solve_a(nums: &[Num], nr_bits: usize) -> usize {
     gamma * epsilon
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(usize, u64)> {
-    let (mut nums, nr_bits) = parse(buf)?;
+pub fn solve(input: &str) -> Result<(usize, u64)> {
+    let (mut nums, nr_bits) = parse(input);
 
     let power = solve_a(&nums, nr_bits);
     let life = solve_b(&mut nums, nr_bits)?;
