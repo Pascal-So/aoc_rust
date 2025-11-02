@@ -3,7 +3,7 @@
 // implement Mul for a polynomial??
 #![allow(clippy::suspicious_arithmetic_impl)]
 
-use core::ops;
+use auto_ops::impl_op_ex;
 use itertools::Itertools;
 use std::collections::HashMap;
 use std::fmt;

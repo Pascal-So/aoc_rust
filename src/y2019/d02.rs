@@ -1,6 +1,6 @@
-use crate::bivariate_polynomial::BP;
+use crate::{bivariate_polynomial::BP, io::parse_entries};
 use anyhow::{bail, Result};
-use std::{cmp::Ordering, io::BufRead};
+use std::cmp::Ordering;
 
 fn access(program: &[BP], instruction_pointer: usize) -> Result<usize, String> {
     let val = &program[instruction_pointer];
@@ -52,8 +52,8 @@ fn requires_brute_force(program: &[usize]) -> bool {
     program[3] != 3 || program[5] == 3 || program[6] == 3 || program[7] != 3
 }
 
-fn load_program(buf: impl BufRead, check_brute_force: bool) -> Result<Vec<BP>> {
-    let program = crate::io::parse_vec(buf, b',', false)?;
+fn load_program(input: &str, check_brute_force: bool) -> Result<Vec<BP>> {
+    let program = parse_entries(input, ',')?;
 
     if check_brute_force && requires_brute_force(&program) {
         bail!("This program has address-dependent reads and the task thus has to be solved by brute force.")
@@ -62,10 +62,10 @@ fn load_program(buf: impl BufRead, check_brute_force: bool) -> Result<Vec<BP>> {
     Ok(program.into_iter().map(BP::constant).collect())
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(usize, i64)> {
+pub fn solve(input: &str) -> Result<(usize, i64)> {
     println!("Day 02");
 
-    let mut program = load_program(buf, true)?;
+    let mut program = load_program(input, true)?;
 
     program[1] = BP::x();
     program[2] = BP::y();
@@ -120,7 +120,7 @@ mod tests {
 
     #[test]
     fn test_example_endstate() -> Result<()> {
-        let mut program = load_program("1,9,10,3,2,3,11,0,99,30,40,50".as_bytes(), false)?;
+        let mut program = load_program("1,9,10,3,2,3,11,0,99,30,40,50", false)?;
 
         run(&mut program).unwrap();
         let endstate = program

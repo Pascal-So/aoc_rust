@@ -10,6 +10,32 @@ pub fn file(path: impl AsRef<Path>) -> Result<impl BufRead> {
     Ok(BufReader::new(File::open(path)?))
 }
 
+pub fn file_str(path: impl AsRef<Path>) -> Result<String> {
+    Ok(std::fs::read_to_string(path)?)
+}
+
+pub fn parse_entries<T>(input: &str, split_on: char) -> Result<Vec<T>>
+where
+    T: FromStr,
+    Result<T, <T as FromStr>::Err>: anyhow::Context<T, <T as FromStr>::Err>,
+{
+    input
+        .split(split_on)
+        .enumerate()
+        .filter(|(_, entry)| !entry.is_empty())
+        .map(|(idx, entry)| {
+            entry
+                .trim()
+                .parse::<T>()
+                .context(format!("parsing entry {}", idx + 1))
+        })
+        .collect()
+}
+
+pub fn split_entries(input: &str, split_on: char) -> impl Iterator<Item = &str> {
+    input.split(split_on).filter(|entry| !entry.is_empty())
+}
+
 pub fn parse_iter<B, T>(buf: B, sep: u8, skip_empty: bool) -> impl Iterator<Item = Result<T>>
 where
     B: BufRead,

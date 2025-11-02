@@ -1,7 +1,4 @@
-use std::{
-    collections::{HashMap, HashSet},
-    io::BufRead,
-};
+use std::collections::{HashMap, HashSet};
 
 use anyhow::{anyhow, Context, Result};
 
@@ -39,8 +36,8 @@ pub fn solve_b(nums: &[i32]) -> Option<i32> {
     None
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let lines = io::parse_vec(buf, b'\n', false).context("Cannot parse input")?;
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let lines = io::parse_entries(input, '\n').context("Cannot parse input")?;
     let a = solve_a(&lines).ok_or_else(|| anyhow!("No solution found for first subtask"))?;
     let b = solve_b(&lines).ok_or_else(|| anyhow!("No solution found for second subtask"))?;
 

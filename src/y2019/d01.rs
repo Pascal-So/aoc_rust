@@ -1,5 +1,7 @@
 use anyhow::Result;
-use std::{io::BufRead, iter};
+use std::iter;
+
+use crate::io::parse_entries;
 
 fn fuel(mass: &i32) -> i32 {
     mass / 3 - 2
@@ -20,7 +22,7 @@ fn solve_b(nums: &[i32]) -> i32 {
         .sum()
 }
 
-pub fn solve(r: impl BufRead) -> Result<(i32, i32)> {
-    let nums = crate::io::parse_vec(r, b'\n', false)?;
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let nums = parse_entries(input, '\n')?;
     Ok((solve_a(&nums), solve_b(&nums)))
 }

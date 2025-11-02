@@ -1,5 +1,3 @@
-use std::io::BufRead;
-
 use anyhow::{bail, Result};
 
 use crate::io;
@@ -22,8 +20,8 @@ fn mod_pow(mut a: i64, mut b: i64) -> i64 {
     res
 }
 
-pub fn solve(buf: impl BufRead) -> Result<i64> {
-    let (a, b) = match io::parse_vec(buf, b'\n', true)?[..] {
+pub fn solve(input: &str) -> Result<i64> {
+    let (a, b) = match io::parse_entries(input, '\n')?[..] {
         [a, b] => (a, b),
         _ => bail!("Expected two numbers as input"),
     };

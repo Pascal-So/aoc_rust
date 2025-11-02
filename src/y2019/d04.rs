@@ -1,12 +1,10 @@
-use std::io::BufRead;
-
 use anyhow::{bail, Result};
 use itertools::Itertools;
 
 use crate::io;
 
-fn parse_input(buf: impl BufRead) -> Result<(i64, i64)> {
-    if let [l, u] = io::parse_vec(buf, b'-', false)?.as_slice() {
+fn parse_input(input: &str) -> Result<(i64, i64)> {
+    if let [l, u] = io::parse_entries(input, '-')?.as_slice() {
         Ok((*l, *u))
     } else {
         bail!("Incorrect number of segments in input!");
@@ -43,8 +41,8 @@ fn is_pwd<const N: usize>(digits: &[u8; N], allow_groups: bool) -> bool {
     has_double
 }
 
-pub fn solve(buf: impl BufRead) -> Result<(i32, i32)> {
-    let (lower, upper) = parse_input(buf)?;
+pub fn solve(input: &str) -> Result<(i32, i32)> {
+    let (lower, upper) = parse_input(input)?;
 
     let iter = NonDecreasing::<6>::new(lower)?;
     let limit = NonDecreasing::<6>::new(upper)?.next().unwrap();
