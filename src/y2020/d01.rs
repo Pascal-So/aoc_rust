@@ -16,7 +16,6 @@ pub fn solve_a(nums: &[i32]) -> Option<i32> {
         map.insert(n);
     }
 
-    dbg!(map);
     None
 }
 
