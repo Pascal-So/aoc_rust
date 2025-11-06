@@ -3,6 +3,7 @@
 pub mod bivariate_polynomial;
 pub mod diophantine;
 pub mod io;
+pub mod octtree;
 pub mod parse;
 pub mod union_find;
 

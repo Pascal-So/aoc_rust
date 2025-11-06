@@ -18,6 +18,7 @@ pub mod d17;
 // pub mod d18;
 pub mod d20;
 pub mod d21;
+pub mod d22;
 pub mod d23;
 pub mod d24;
 pub mod d25;
@@ -95,6 +96,11 @@ mod tests {
 
     test_task! { y2021, d21, example, (739785, 444356092776315) }
     test_task! { y2021, d21, full, (1006866, 273042027784929) }
+
+    test_task! { y2021, d22, example_1, (39, _) }
+    test_task! { y2021, d22, example_2, (590784, _) }
+    test_task! { y2021, d22, example_3, (474140, 2758514936282235) }
+    test_task! { y2021, d22, full, (537042, 1304385553084863) }
 
     //     test_task! { y2021, d23, example, (12521, 44169) }
     //     test_task! { y2021, d23, full, (14348, 40954) }

@@ -1,8 +1,8 @@
-// use advent::{io::{file, file_str}, y2023};
+use advent::{io::file_str, y2021};
 
 fn main() {
-    // println!(
-    //     "{:?}",
-    //     y2023::d01::solve(&file_str("data/y2023/d01_full.txt").unwrap()).unwrap()
-    // );
+    println!(
+        "{:?}",
+        y2021::d22::solve(&file_str("data/y2021/d22_full.txt").unwrap()).unwrap()
+    );
 }
