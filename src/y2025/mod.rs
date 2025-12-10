@@ -7,6 +7,7 @@ pub mod d06;
 pub mod d07;
 pub mod d08;
 pub mod d09;
+pub mod d10;
 
 #[cfg(test)]
 mod tests {
@@ -38,4 +39,7 @@ mod tests {
 
     test_task! { y2025, d09, example, (50, 24) }
     test_task! { y2025, d09, full, (4752484112, 1465767840) }
+
+    test_task! { y2025, d10, example, (7, 33) }
+    test_task! { y2025, d10, full, (507, 0) }
 }
