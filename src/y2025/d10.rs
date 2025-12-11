@@ -1,6 +1,7 @@
-use std::collections::VecDeque;
+use std::{collections::VecDeque, i64};
 
 use anyhow::Result;
+use microlp::{ComparisonOp, OptimizationDirection, Problem};
 
 pub fn solve(input: &str) -> Result<(i64, i64)> {
     let machines = parse(input);
@@ -15,12 +16,43 @@ pub fn solve(input: &str) -> Result<(i64, i64)> {
 
     // solve part 2
     let mut total_joltage_presses = 0;
-    for machine in machines {}
+    for machine in machines {
+        let mut problem = Problem::new(OptimizationDirection::Minimize);
+
+        let vars: Vec<_> = (0..machine.buttons_indices.len())
+            .map(|_| problem.add_integer_var(1.0, (0, i32::MAX)))
+            .collect();
+
+        let mut matrix = Vec::with_capacity(machine.joltages.len());
+        for _ in 0..machine.joltages.len() {
+            matrix.push(vec![0; machine.buttons_indices.len()]);
+        }
+
+        for (j, button) in machine.buttons_indices.iter().enumerate() {
+            for &i in button {
+                matrix[i][j] = 1;
+            }
+        }
+
+        for (i, joltage) in machine.joltages.iter().enumerate() {
+            let terms: Vec<_> = matrix[i]
+                .iter()
+                .enumerate()
+                .map(|(j, coeff)| (vars[j], f64::from(*coeff)))
+                .collect();
+            problem.add_constraint(&terms, ComparisonOp::Eq, f64::from(*joltage));
+        }
+
+        let solution = problem.solve().unwrap();
+        let objective = solution.objective();
+        total_joltage_presses += objective.round() as i64;
+    }
 
     Ok((total_config_presses, total_joltage_presses))
 }
 
 fn bfs(start: u16, target: u16, buttons: &[u16]) -> Option<i64> {
+    // we make the assumption that there's never more than 10 lights/counters per machine
     let mut visited = vec![false; 1 << 10];
     let mut queue = VecDeque::new();
 
@@ -45,13 +77,11 @@ fn bfs(start: u16, target: u16, buttons: &[u16]) -> Option<i64> {
     None
 }
 
-// we make the assumption that there's never more than 10 lights/counters per machine
-type CounterGroup = [u16; 10];
 struct Machine {
     indicator_target: u16,
     buttons_indices: Vec<Vec<usize>>,
     buttons_masks: Vec<u16>,
-    joltages: CounterGroup,
+    joltages: Vec<i32>,
 }
 
 fn parse(input: &str) -> Vec<Machine> {
@@ -100,14 +130,13 @@ fn parse(input: &str) -> Vec<Machine> {
                 })
                 .collect();
 
-            let joltages_str = joltages
+            let joltages = joltages
                 .strip_suffix("}")
-                .expect("joltages list does not end with }");
-            let mut joltages = [0; 10];
-            for (i, joltage) in joltages_str.split(",").enumerate() {
-                joltages[i] = joltage.parse().unwrap();
-            }
-
+                .expect("joltages list does not end with }")
+                .split(",")
+                .into_iter()
+                .map(|j| j.parse().unwrap())
+                .collect();
             Machine {
                 indicator_target,
                 joltages,
