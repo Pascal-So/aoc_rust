@@ -5,6 +5,53 @@ Spoilers ahead on how (not) to do it.
 I don't claim that these solutions are the most elegant ones, or that
 they work for all possible inputs, but they do work for mine.
 
+## [2025](https://adventofcode.com/2025)
+
+- [**Day 08**](https://adventofcode.com/2025/day/8)
+
+  All my homies love [union find](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
+
+- [**Day 09**](https://adventofcode.com/2025/day/9)
+
+  Only after implementing a 2d Fenwick tree with range update and range queries
+  did I notice that the Fenwick tree is not even necessary since all the
+  queries only happen after the updates, so we can just run the prefix sum in
+  O(n²) instead.
+
+  To deal with the line thickness I ended up thinking of every connection
+  between two red blocks as having an infinitely thin line down the middle
+  of it. In other words, we shift the whole grid by half a unit in both x
+  and y, this ends up significanlty simplifying the code.
+
+- [**Day 10**](https://adventofcode.com/2025/day/10)
+
+  I first thought about doing some kind of gaussian elimination while making
+  sure that we keep all values as integers, for example by multiplying the two
+  rows by the GCD of their first values.
+
+  The issue, however, would be that we still have to find any valid integer
+  solution first before we can run a search over the nullspace of the matrix.
+  Also, all of this sounds like quite a lot of code. So I decided to try out
+  using a linear programming library (specifically [`microlp`][crate_microlp]),
+  which worked out nicely.
+
+- [**Day 11**](https://adventofcode.com/2025/day/11)
+
+  From the problem description we can already tell that the graph does not
+  contain any cycles that are reachable from the various start nodes, so
+  therefore every node is only visited once in a path.
+
+  I ended up keeping a count for every combination of `(Node, has_visited_DAC, has_visited_FFT)`,
+  and then propagating these counts |V| times. That way we don't need to
+  keep a cache around.
+
+- [**Day 12**](https://adventofcode.com/2025/day/12)
+
+  He got us good on this one :D
+  
+  But hey at least I got to play around with a SAT solver library!
+
+
 ## [2022](https://adventofcode.com/2022)
 
 - [**Day 01**](https://adventofcode.com/2022/day/1)
@@ -142,11 +189,31 @@ they work for all possible inputs, but they do work for mine.
   When clipping the grid to a finite region, this toggling might lead to
   artifacts at the boundary.
 
+- [**Day 21**](https://adventofcode.com/2021/day/21)
+
+  number_of_universes[Player 1 pos][Player 2 pos][Player 1 score][Player 2 score]
+
+- [**Day 22**](https://adventofcode.com/2021/day/22)
+
+  Turns out an octtree still ends up doing quite a lot of work here.
+
 - [**Day 23**](https://adventofcode.com/2021/day/23)
 
   Another A* task. I first missed the constraint where no amphipod can move
   into someone else's room, which had the effect of blowing up the release
   runtime from 0.08s up to "exceeding my patience".
+
+- [**Day 24**](https://adventofcode.com/2021/day/24)
+
+  I didn't automate the solution here, instead I printed out the expression
+  after various simplification steps, from there I was able to read the
+  constraints and then solve them by hand.
+
+- [**Day 25**](https://adventofcode.com/2021/day/25)
+
+  A bit fiddly to get the wrapping behaviour right if you want to do it
+  in-place.
+
 
 ## [2020](https://adventofcode.com/2020)
 
@@ -225,3 +292,4 @@ they work for all possible inputs, but they do work for mine.
 [crate_nom]: https://crates.io/crates/nom
 [crate_combine]: https://crates.io/crates/combine
 [crate_deku]: https://crates.io/crates/deku
+[crate_microlp]: https://crates.io/crates/microlp
