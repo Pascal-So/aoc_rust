@@ -18,6 +18,8 @@ deku = "0.12.5"
 rustfft = "6.0.1"
 aho-corasick = "1.1.4"
 microlp = "0.2.11"
+rustsat = "0.7.4"
+rustsat-kissat = "0.7.4"
 
 [dev-dependencies]
 criterion = "0.3"
